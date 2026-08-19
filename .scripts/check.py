@@ -10,7 +10,7 @@ import yaml
 # Globals
 
 ASSIGNMENTS    = {}
-DREDD_QUIZ_URL = 'https://dredd.h4x0r.space/quiz/cse-30341-fa26/'
+DREDD_QUIZ_URL = 'https://dredd.h4x0r.space/quiz/cse.30341.fa26/'
 
 # Utilities
 
