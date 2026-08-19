@@ -21,7 +21,6 @@ test:
 	@python3 ../.scripts/grade.py
 
 program:    program.c
-	@echo Building program...
 	@\$(CC) \$(CFLAGS) -o \$@ $^ \$(LIBS)
 
 clean:
