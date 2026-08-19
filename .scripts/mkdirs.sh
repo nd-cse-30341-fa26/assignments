@@ -9,26 +9,34 @@ for i in $(seq 1 11); do
 EOF
 
     cat > reading$n/Makefile <<EOF
+# Compiler Settings
+
 CC=	gcc
 CFLAGS=	-Wall -g -std=gnu99
-LIBS=	
+LIBS=
 
-test:	
-	@\$(MAKE) -sk test-quiz test-program
+# Main Targets
+
+test:
+	@python3 ../.scripts/grade.py
 
 program:    program.c
-	\$(CC) \$(CFLAGS) -o \$@ $^ \$(LIBS)
-
-test-quiz:
-	../.scripts/check.py
-
-test-program: program
-	curl -sLO https://pnutz.h4x0r.space/courses/cse.30341.fa26/static/txt/reading$n/test_program.sh
-	chmod +x test_program.sh
-	./test_program.sh
+	@echo Building program...
+	@\$(CC) \$(CFLAGS) -o \$@ $^ \$(LIBS)
 
 clean:
-	rm -f program
+	@echo Cleaning up...
+	@rm -f program test_program.sh
+
+# Test Targets
+
+test-quiz:	\$(wildcard answers.json answers.yaml)
+	@../.scripts/check.py
+
+test-program: 	program
+	@curl -sLO https://pnutz.h4x0r.space/courses/cse.30341.fa26/static/txt/reading$n/test_program.sh
+	@chmod +x test_program.sh
+	@./test_program.sh
 EOF
     cat > reading$n/program.c <<EOF
 /* Reading $n */
